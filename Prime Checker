@@ -1,0 +1,88 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.lang.reflect.*;
+import static java.lang.System.in;
+
+class Factorial {
+    public static int calFactorial(int in) {
+        int cal = 1;
+        
+        while (in > 0) {
+            cal = cal * in;
+            in--;
+        }
+        
+        return cal;
+    }
+}
+
+class Prime {
+    public void checkPrime(int ...args) {
+        String res = "";
+        
+        for (int i : args) {
+            if (i != 0 && i != 1) {    
+                // this is Willans' formula            
+                double result = Math.pow(Math.cos(Math.PI * ((Factorial.calFactorial(i - 1) + 1) / (double) i)), 2);
+                
+                if (result >= 1) {
+                    if (res.length() > 0) {
+                        res = res + " " + i;
+                    } else {
+                        res = res + i;
+                    }
+                }
+            }
+        }
+        
+        if (res.isEmpty()) {
+            System.out.println("");
+        } else {
+            System.out.println(res);
+        }
+    }
+}
+
+public class Solution {
+
+	public static void main(String[] args) {
+		try{
+		BufferedReader br=new BufferedReader(new InputStreamReader(in));
+		int n1=Integer.parseInt(br.readLine());
+		int n2=Integer.parseInt(br.readLine());
+		int n3=Integer.parseInt(br.readLine());
+		int n4=Integer.parseInt(br.readLine());
+		int n5=Integer.parseInt(br.readLine());
+		Prime ob=new Prime();
+		ob.checkPrime(n1);
+		ob.checkPrime(n1,n2);
+		ob.checkPrime(n1,n2,n3);
+		ob.checkPrime(n1,n2,n3,n4,n5);	
+		Method[] methods=Prime.class.getDeclaredMethods();
+		Set<String> set=new HashSet<>();
+		boolean overload=false;
+		for(int i=0;i<methods.length;i++)
+		{
+			if(set.contains(methods[i].getName()))
+			{
+				overload=true;
+				break;
+			}
+			set.add(methods[i].getName());
+			
+		}
+		if(overload)
+		{
+			throw new Exception("Overloading not allowed");
+		}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+}
